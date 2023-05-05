@@ -1,9 +1,9 @@
 <!-- search bar -->
-<div class="container search-bar">
-  <div class="search-bar-outer">
+<div class="container search-bar d-flex justify-content-between mt-3">
+  <div class="search-bar-outer w-25">
     <div class="search-bar-inner">
       <form action="/search">
-        <h4 class="mb-2">尋找餐廳：</h4>
+
         <div class="input-group">
           <input
             type="text"
@@ -20,16 +20,29 @@
               ></i></button>
           </div>
         </div>
+
       </form>
     </div>
+  </div>
+  <div class="dropdown w-25">
+    <button
+      class="btn btn-secondary dropdown-toggle"
+      type="button"
+      id="dropdownMenuButton1"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
+    >
+      Sort
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+      <li><a class="dropdown-item" href="#">A->Z</a></li>
+      <li><a class="dropdown-item" href="#">Z->A</a></li>
+      <li><a class="dropdown-item" href="#">category</a></li>
+    </ul>
   </div>
 </div>
 
 {{! restaurants list }}
-<a
-  class="rounded m-3 p-2 bg-success text-white fs-5 text-decoration-none"
-  href="/restaurants/new"
->Create Restaurant</a>
 
 <div class="container mt-5">
   <div class="row">

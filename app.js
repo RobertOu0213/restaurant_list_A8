@@ -29,11 +29,14 @@ app.get("/search", (req, res) => {
   Restaurants.find()
     .lean()
     .then((restaurant) => {
-      const restaurantFilter = restaurant.name
-        .toLowerCase()
-        .trim()
-        .includes(req.query.keyword.toLowerCase().trim());
-      res.render("index", { restaurants: restaurantFilter });
+      const FilterRestaurant = restaurant.filter((data) => {
+        data.name
+          .toLowerCase()
+          .trim()
+          .includes(req.query.keyword.toLowerCase().trim());
+      });
+
+      res.render("index", { restaurants: FilterRestaurant });
     });
 });
 
