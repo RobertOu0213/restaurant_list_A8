@@ -3,6 +3,7 @@ const app = express();
 const port = 3000;
 const exphbs = require("express-handlebars");
 const mongoose = require("mongoose");
+const methodOverride = require("method-override");
 
 const Restaurants = require("./models/restaurants");
 
@@ -31,6 +32,9 @@ app.use(express.static("public"));
 
 //body parser
 app.use(express.urlencoded({ extended: true }));
+
+//method-override
+app.use(methodOverride('_method'))
 
 //瀏覽全部餐廳
 app.get("/", (req, res) => {
@@ -74,7 +78,7 @@ app.get("/restaurants/:id/edit", (req, res) => {
 });
 
 //修改資料
-app.post("/restaurants/:id/edit", (req, res) => {
+app.put("/restaurants/:id", (req, res) => {
   const id = req.params.id;
   const name = req.body.name;
   return Restaurants.findById(id)
@@ -87,7 +91,7 @@ app.post("/restaurants/:id/edit", (req, res) => {
 });
 
 //刪除資料
-app.post("/restaurants/:id/delete", (req, res) => {
+app.delete("/restaurants/:id", (req, res) => {
   const id = req.params.id;
   return Restaurants.findById(id)
     .then((restaurant) => restaurant.remove())
@@ -100,7 +104,7 @@ app.get("/search", (req, res) => {
   Restaurants.find()
     .lean()
     .then((restaurant) => {
-      let restaurantFilter = restaurant.name
+      const restaurantFilter = restaurant.name
         .toLowerCase()
         .trim()
         .includes(req.query.keyword.toLowerCase().trim());
