@@ -4,6 +4,7 @@ const port = 3000;
 const exphbs = require("express-handlebars");
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
+const routes = require("./routes");
 
 const Restaurants = require("./models/restaurants");
 
@@ -34,70 +35,9 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 
 //method-override
-app.use(methodOverride('_method'))
+app.use(methodOverride("_method"));
 
-//瀏覽全部餐廳
-app.get("/", (req, res) => {
-  Restaurants.find()
-    .lean()
-    .then((restaurants) => {
-      res.render("index", { restaurants });
-    })
-    .catch((error) => console.log(error));
-});
-
-//瀏覽新餐廳
-app.get("/restaurants/new", (req, res) => {
-  res.render("new");
-});
-
-//新增新餐廳
-app.post("/restaurants", (req, res) => {
-  const name = req.body.name;
-  return Restaurants.create({ name })
-    .then(() => res.redirect("/"))
-    .catch((error) => console.log(error));
-});
-
-//瀏覽特定餐廳
-app.get("/restaurants/:id", (req, res) => {
-  const id = req.params.id;
-  return Restaurants.findById(id)
-    .lean()
-    .then((restaurant) => res.render("detail", { restaurant }))
-    .catch((error) => console.log(error));
-});
-
-//瀏覽編輯餐廳
-app.get("/restaurants/:id/edit", (req, res) => {
-  const id = req.params.id;
-  return Restaurants.findById(id)
-    .lean()
-    .then((restaurant) => res.render("edit", { restaurant }))
-    .catch((error) => console.log(error));
-});
-
-//修改資料
-app.put("/restaurants/:id", (req, res) => {
-  const id = req.params.id;
-  const name = req.body.name;
-  return Restaurants.findById(id)
-    .then((restaurant) => {
-      restaurant.name = name;
-      return restaurant.save();
-    })
-    .then(() => res.redirect(`/restaurants/${id}`))
-    .catch((error) => console.log(error));
-});
-
-//刪除資料
-app.delete("/restaurants/:id", (req, res) => {
-  const id = req.params.id;
-  return Restaurants.findById(id)
-    .then((restaurant) => restaurant.remove())
-    .then(() => res.redirect("/"))
-    .catch((error) => console.log(error));
-});
+app.use(routes);
 
 //搜尋keyword
 app.get("/search", (req, res) => {
