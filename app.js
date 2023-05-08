@@ -29,12 +29,12 @@ app.get("/search", (req, res) => {
   Restaurants.find()
     .lean()
     .then((restaurant) => {
-      const FilterRestaurant = restaurant.filter((data) => {
+      const FilterRestaurant = restaurant.filter((data) =>
         data.name
           .toLowerCase()
           .trim()
-          .includes(req.query.keyword.toLowerCase().trim());
-      });
+          .includes(req.query.keyword.toLowerCase().trim())
+      );
 
       res.render("index", { restaurants: FilterRestaurant });
     });
