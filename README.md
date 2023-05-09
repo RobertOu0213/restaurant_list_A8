@@ -1,6 +1,7 @@
 # 餐廳清單 + CRUD :wink:
 
-![螢幕擷取畫面 2023-05-02 164410](https://user-images.githubusercontent.com/115865251/235627761-9c308f80-276a-4eb8-9610-4de55ac287c6.jpg)
+<img width="925" alt="image" src="https://github.com/RobertOu0213/restaurant_list_A8/assets/115865251/dc8b467d-2bb3-45b4-ad48-92889082a754">
+
 
 
 
@@ -15,6 +16,8 @@
 4. 修改餐廳名稱
 
 5. 刪除餐廳
+
+6. 搜尋餐廳
 
 # 開始使用
 
@@ -52,3 +55,4 @@ ctrl + c
 - Express-Handlebars 3.0.0
 - mongoose 5.9.7
 - dotenv 16.0.3
+- method-override 3.0.0
