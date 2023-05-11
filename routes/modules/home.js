@@ -12,6 +12,25 @@ router.get("/", (req, res) => {
     .catch((error) => console.log(error));
 });
 
-module.exports = router
+//搜尋keyword
+router.get("/search", (req, res) => {
+  Restaurants.find()
+    .lean()
+    .then((restaurant) => {
+      const FilterRestaurant = restaurant.filter(
+        (data) =>
+          data.name
+            .toLowerCase()
+            .trim()
+            .includes(req.query.keyword.toLowerCase().trim()) ||
+          data.category
+            .toLowerCase()
+            .trim()
+            .includes(req.query.keyword.toLowerCase().trim())
+      );
 
+      res.render("index", { restaurants: FilterRestaurant });
+    });
+});
 
+module.exports = router;

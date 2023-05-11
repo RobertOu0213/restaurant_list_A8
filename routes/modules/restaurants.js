@@ -9,8 +9,7 @@ router.get("/new", (req, res) => {
 
 //新增新餐廳
 router.post("/", (req, res) => {
-  const name = req.body.name;
-  return Restaurants.create({ name })
+  return Restaurants.create(req.body)
     .then(() => res.redirect("/"))
     .catch((error) => console.log(error));
 });
@@ -36,10 +35,8 @@ router.get("/:id/edit", (req, res) => {
 //修改資料
 router.put("/:id", (req, res) => {
   const id = req.params.id;
-  const name = req.body.name;
-  return Restaurants.findById(id)
+  return Restaurants.findByIdAndUpdate(id, req.body)
     .then((restaurant) => {
-      restaurant.name = name;
       return restaurant.save();
     })
     .then(() => res.redirect(`/restaurants/${id}`))
@@ -54,7 +51,5 @@ router.delete("/:id", (req, res) => {
     .then(() => res.redirect("/"))
     .catch((error) => console.log(error));
 });
-
-
 
 module.exports = router;
